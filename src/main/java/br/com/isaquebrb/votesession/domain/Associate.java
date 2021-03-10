@@ -1,5 +1,6 @@
 package br.com.isaquebrb.votesession.domain;
 
+import br.com.isaquebrb.votesession.domain.dto.AssociateDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,4 +24,8 @@ public class Associate {
 
     @OneToMany(mappedBy = "associate")
     private Set<AssociateVote> associateVoteList;
+
+    public AssociateDto toDto() {
+        return new AssociateDto(document, name);
+    }
 }

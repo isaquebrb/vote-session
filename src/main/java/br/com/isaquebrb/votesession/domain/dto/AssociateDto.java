@@ -1,6 +1,7 @@
 package br.com.isaquebrb.votesession.domain.dto;
 
 import br.com.isaquebrb.votesession.domain.Associate;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,15 +10,10 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@NoArgsConstructor
 @Setter
 @Getter
+@AllArgsConstructor
 public class AssociateDto {
-
-    public AssociateDto(Associate associate){
-        this.document = associate.getDocument();
-        this.name = associate.getName();
-    }
 
     @NotBlank(message = "O campo document é obrigatório")
     @Size(message = "O campo document deve conter apenas 11 caracteres", min = 11, max = 11)
@@ -26,7 +22,7 @@ public class AssociateDto {
 
     private String name;
 
-    public Associate toEntity(){
+    public Associate toEntity() {
         return Associate.builder()
                 .document(document)
                 .name(name)

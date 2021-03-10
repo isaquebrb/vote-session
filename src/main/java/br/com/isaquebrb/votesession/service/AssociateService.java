@@ -18,8 +18,7 @@ public class AssociateService {
     public AssociateDto addAssociate(AssociateDto dto) {
         try {
             Associate associate = dto.toEntity();
-            associate = repository.save(associate);
-            return new AssociateDto(associate);
+            return repository.save(associate).toDto();
         } catch (DataIntegrityViolationException e) {
             log.error("Documento {} já existe.", dto.getDocument(), e);
             throw new IllegalArgumentException("Erro");
