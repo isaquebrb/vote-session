@@ -1,22 +1,18 @@
-version '2'
+version: '3.8'
 
 services:
-  app:
-    image: 'vote-session:latest'
-    build:
-      context:
-        container_name: app
-        depends_on:
-          - db
-        environment:
-          - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
-          - SPRING_DATASOURCE_USERNAME=compose-postgres
-          - SPRING_DATASOURCE_PASSWORD=compose-postgres
-          - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-
   db:
-    image: 'postgres:13.1-alpine'
-    container_name: db
+    image: postgres:13.1-alpine
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
+      - POSTGRES_DB=compose-postgres
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
