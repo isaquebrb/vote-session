@@ -1,4 +1,4 @@
-package br.com.isaquebrb.votesession.model.enums;
+package br.com.isaquebrb.votesession.domain.enums;
 
 public enum Vote {
     YES,

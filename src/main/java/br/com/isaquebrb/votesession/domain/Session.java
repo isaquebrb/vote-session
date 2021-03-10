@@ -1,4 +1,4 @@
-package br.com.isaquebrb.votesession.model;
+package br.com.isaquebrb.votesession.domain;
 
 import lombok.NoArgsConstructor;
 

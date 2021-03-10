@@ -1,7 +1,6 @@
-package br.com.isaquebrb.votesession.model.dto;
+package br.com.isaquebrb.votesession.domain.dto;
 
-import br.com.isaquebrb.votesession.model.Associate;
-import lombok.AllArgsConstructor;
+import br.com.isaquebrb.votesession.domain.Associate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Setter
 @Getter
 public class AssociateDto {

@@ -1,6 +1,6 @@
 package br.com.isaquebrb.votesession.repository;
 
-import br.com.isaquebrb.votesession.model.Associate;
+import br.com.isaquebrb.votesession.domain.Associate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

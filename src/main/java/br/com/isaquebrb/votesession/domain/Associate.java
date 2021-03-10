@@ -1,9 +1,7 @@
-package br.com.isaquebrb.votesession.model;
+package br.com.isaquebrb.votesession.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,8 +11,6 @@ import java.util.Set;
 @Entity
 @Table(name = "associate", uniqueConstraints =
 @UniqueConstraint(columnNames = "document", name = "document_uk"))
-@NoArgsConstructor
-@AllArgsConstructor
 public class Associate {
 
     @Id

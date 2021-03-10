@@ -1,6 +1,6 @@
-package br.com.isaquebrb.votesession.model;
+package br.com.isaquebrb.votesession.domain;
 
-import br.com.isaquebrb.votesession.model.enums.TopicStatus;
+import br.com.isaquebrb.votesession.domain.enums.TopicStatus;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
