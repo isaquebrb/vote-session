@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "session")
 public class Session {
 
     @Id

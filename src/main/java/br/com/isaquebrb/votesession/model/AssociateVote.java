@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "associate_vote")
 public class AssociateVote {
 
     @Id
