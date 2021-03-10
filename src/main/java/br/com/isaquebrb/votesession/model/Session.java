@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "session")
 @NoArgsConstructor
 public class Session {
 
@@ -18,10 +17,10 @@ public class Session {
     @OneToOne(mappedBy = "session")
     private Topic topic;
 
-    private LocalDateTime startDate;
+    private LocalDateTime startDate = LocalDateTime.now();
 
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "session")
-    private Set<MemberVote> memberVoteList;
+    private Set<AssociateVote> associateVoteList;
 }
