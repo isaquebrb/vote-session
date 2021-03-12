@@ -1,6 +1,6 @@
 package br.com.isaquebrb.votesession.domain;
 
-import br.com.isaquebrb.votesession.domain.dto.AssociateDto;
+import br.com.isaquebrb.votesession.domain.dto.AssociateRequest;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,7 +15,7 @@ import java.util.Set;
 public class Associate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String document;
@@ -25,7 +25,7 @@ public class Associate {
     @OneToMany(mappedBy = "associate")
     private Set<AssociateVote> associateVoteList;
 
-    public AssociateDto toDto() {
-        return new AssociateDto(document, name);
+    public AssociateRequest toDto() {
+        return new AssociateRequest(document, name);
     }
 }

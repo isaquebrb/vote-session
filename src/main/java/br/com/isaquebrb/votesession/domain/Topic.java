@@ -1,28 +1,36 @@
 package br.com.isaquebrb.votesession.domain;
 
+import br.com.isaquebrb.votesession.domain.dto.TopicResponse;
 import br.com.isaquebrb.votesession.domain.enums.TopicStatus;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
+@Getter
+@Setter
+@Builder
 @Entity
 @Table(name = "topic")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Topic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "Topic name must not be null or blank")
     private String name;
 
     private String description;
 
+    @Builder.Default
     @Enumerated(value = EnumType.STRING)
-    private TopicStatus status = TopicStatus.UNDEFINED;
+    private TopicStatus status = TopicStatus.OPENED;
 
     @OneToOne
     private Session session;
+
+    public TopicResponse toDto() {
+        return new TopicResponse(id, name, description, status.name());
+    }
 }

@@ -1,14 +1,15 @@
 package br.com.isaquebrb.votesession.domain;
 
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "session")
+@NoArgsConstructor
 public class Session {
 
     @Id
@@ -20,6 +21,7 @@ public class Session {
 
     private LocalDateTime startDate = LocalDateTime.now();
 
+    @Setter
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "session")
