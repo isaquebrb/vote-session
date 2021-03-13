@@ -1,7 +1,7 @@
 package br.com.isaquebrb.votesession.domain.dto;
 
 import br.com.isaquebrb.votesession.constrains.MessageConstraints;
-import br.com.isaquebrb.votesession.constrains.VoteChoiceParameters;
+import br.com.isaquebrb.votesession.constrains.VoteChoiceParams;
 import lombok.Getter;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -19,7 +19,7 @@ public class VotingRequest {
     private String document;
 
     //todo exception handling
-    @VoteChoiceParameters
+    @VoteChoiceParams
     private String voteChoice;
 
     @NotNull(message = "O campo sessionId e obrigatorio")

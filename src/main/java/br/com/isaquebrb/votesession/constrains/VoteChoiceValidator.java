@@ -8,7 +8,7 @@ import javax.validation.constraintvalidation.SupportedValidationTarget;
 import javax.validation.constraintvalidation.ValidationTarget;
 
 @SupportedValidationTarget(ValidationTarget.ANNOTATED_ELEMENT)
-public class VoteChoiceValidator implements ConstraintValidator<VoteChoiceParameters, String> {
+public class VoteChoiceValidator implements ConstraintValidator<VoteChoiceParams, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {

@@ -14,7 +14,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/vote")
 @RequiredArgsConstructor
-public class AssociateVoteController {
+public class VoteController {
 
     private final AssociateVoteService service;
 

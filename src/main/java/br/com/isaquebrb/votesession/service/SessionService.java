@@ -2,6 +2,7 @@ package br.com.isaquebrb.votesession.service;
 
 import br.com.isaquebrb.votesession.domain.Session;
 import br.com.isaquebrb.votesession.domain.Topic;
+import br.com.isaquebrb.votesession.domain.dto.SessionResponse;
 import br.com.isaquebrb.votesession.domain.enums.TopicStatus;
 import br.com.isaquebrb.votesession.repository.SessionRepository;
 import br.com.isaquebrb.votesession.repository.TopicRepository;
@@ -25,13 +26,13 @@ public class SessionService {
     private final ParameterService parameterService;
 
 
-    public void startSession(Long topicId) {
+    public SessionResponse startSession(Long topicId) {
         Topic topic = topicRepository.findById(topicId)
                 .orElseThrow(IllegalArgumentException::new);
 
         if (topic.getStatus().equals(TopicStatus.CLOSED)) {
             log.warn("A pauta '{}' ja esta encerrada.", topic.getName());
-            return;
+            throw new IllegalArgumentException("Erro voto encerrado");
         }
 
         Session session = new Session();
@@ -40,6 +41,7 @@ public class SessionService {
 
         topic.setSession(session);
         runSession(topic);
+        return session.toDto();
     }
 
     public void closeSession(Topic topic) {

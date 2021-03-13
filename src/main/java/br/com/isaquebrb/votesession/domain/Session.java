@@ -1,6 +1,10 @@
 package br.com.isaquebrb.votesession.domain;
 
-import lombok.*;
+import br.com.isaquebrb.votesession.domain.dto.SessionResponse;
+import br.com.isaquebrb.votesession.utils.DateUtils;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,4 +35,8 @@ public class Session {
 
     @OneToMany(mappedBy = "session")
     private Set<AssociateVote> associateVoteList;
+
+    public SessionResponse toDto() {
+        return new SessionResponse(id, DateUtils.toDateTime(startDate), topic.getName());
+    }
 }
