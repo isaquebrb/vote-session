@@ -13,15 +13,20 @@ import java.util.Set;
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @OneToOne(mappedBy = "session")
+    @Setter
+    @OneToOne(optional = false)
+    @JoinColumn(name = "topic_id")
     private Topic topic;
 
+    @Column(name = "start_date")
     private LocalDateTime startDate = LocalDateTime.now();
 
     @Setter
+    @Column(name = "end_date")
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "session")

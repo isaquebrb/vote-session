@@ -11,9 +11,16 @@ import java.time.LocalDateTime;
 public class Parameter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "integer_value")
     private Integer integerValue;
+
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }

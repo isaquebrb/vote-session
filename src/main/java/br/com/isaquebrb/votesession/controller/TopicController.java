@@ -3,11 +3,13 @@ package br.com.isaquebrb.votesession.controller;
 import br.com.isaquebrb.votesession.domain.dto.TopicRequest;
 import br.com.isaquebrb.votesession.domain.dto.TopicResponse;
 import br.com.isaquebrb.votesession.service.TopicService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -21,11 +23,5 @@ public class TopicController {
     @PostMapping("/new")
     public ResponseEntity<TopicResponse> createTopic(@Valid @RequestBody TopicRequest topic) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createTopic(topic));
-    }
-
-    @GetMapping
-    public String get(){
-        //todo test async schedule
-        return "Hello Word";
     }
 }

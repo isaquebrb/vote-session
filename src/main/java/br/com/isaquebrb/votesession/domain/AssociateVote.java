@@ -1,28 +1,35 @@
 package br.com.isaquebrb.votesession.domain;
 
-import br.com.isaquebrb.votesession.domain.enums.Vote;
-import lombok.NoArgsConstructor;
+import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Entity
-@NoArgsConstructor
-@Table(name = "associate_vote")
+@Table(name = "associate_vote", uniqueConstraints =
+@UniqueConstraint(columnNames = {"associate_id", "session_id"}, name = "associate_session_uk"))
 public class AssociateVote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Vote vote;
+    @Column(name = "vote_choice")
+    private VoteChoice voteChoice;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "associate_id")
     private Associate associate;
 
+    @Builder.Default
+    @Column(name = "vote_date")
     private LocalDateTime voteDate = LocalDateTime.now();
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "session_id")
     private Session session;
 }

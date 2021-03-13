@@ -1,26 +1,28 @@
 package br.com.isaquebrb.votesession.domain.dto;
 
 import br.com.isaquebrb.votesession.constrains.MessageConstraints;
-import br.com.isaquebrb.votesession.domain.Associate;
-import lombok.AllArgsConstructor;
+import br.com.isaquebrb.votesession.constrains.VoteChoiceParameters;
 import lombok.Getter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @Getter
-@AllArgsConstructor
-public class AssociateRequest {
+public class VotingRequest {
 
     @NotBlank(message = MessageConstraints.DOCUMENT_NOT_BLANK)
     @Size(message = MessageConstraints.DOCUMENT_SIZE, min = 11, max = 11)
     @CPF(message = MessageConstraints.CPF)
     private String document;
 
-    private String name;
+    //todo exception handling
+    @VoteChoiceParameters
+    private String voteChoice;
 
-    public Associate toEntity() {
-        return new Associate(document, name);
-    }
+    @NotNull(message = "O campo sessionId e obrigatorio")
+    @Positive(message = "O campo sessionId deve ser numerico")
+    private Long sessionId;
 }

@@ -16,18 +16,22 @@ import javax.persistence.*;
 public class Topic {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
 
     @Builder.Default
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
     private TopicStatus status = TopicStatus.OPENED;
 
-    @OneToOne
+    @OneToOne(mappedBy = "topic")
     private Session session;
 
     public TopicResponse toDto() {

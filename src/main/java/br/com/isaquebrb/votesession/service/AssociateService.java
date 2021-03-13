@@ -20,7 +20,8 @@ public class AssociateService {
             Associate associate = dto.toEntity();
             return repository.save(associate).toDto();
         } catch (DataIntegrityViolationException e) {
-            log.error("O CPF {} ja existe.", dto.getDocument(), e);
+            log.error("O CPF final {} ja esta cadastrado.", dto.getDocument()
+                    .substring(dto.getDocument().length() - 5));
             throw new IllegalArgumentException("Erro");
         }
     }

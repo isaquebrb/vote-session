@@ -1,7 +1,7 @@
 package br.com.isaquebrb.votesession.domain.enums;
 
-public enum Vote {
+public enum VoteChoice {
 
     YES,
-    NO;
+    NO
 }
