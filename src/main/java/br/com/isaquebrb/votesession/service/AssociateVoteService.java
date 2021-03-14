@@ -5,16 +5,14 @@ import br.com.isaquebrb.votesession.domain.AssociateVote;
 import br.com.isaquebrb.votesession.domain.Session;
 import br.com.isaquebrb.votesession.domain.dto.VotingRequest;
 import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
-import br.com.isaquebrb.votesession.repository.AssociateRepository;
+import br.com.isaquebrb.votesession.exception.EntityNotFoundException;
 import br.com.isaquebrb.votesession.repository.AssociateVoteRepository;
-import br.com.isaquebrb.votesession.repository.SessionRepository;
+import br.com.isaquebrb.votesession.utils.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -22,53 +20,61 @@ import java.util.Optional;
 public class AssociateVoteService {
 
     private final AssociateVoteRepository repository;
-    private final AssociateRepository associateRepository;
-    private final SessionRepository sessionRepository;
+    private final AssociateService associateService;
+    private final SessionService sessionService;
 
     @Async
     public void vote(VotingRequest request) {
 
-        Optional<Associate> associate = getAssociate(request.getDocument());
-        Optional<Session> session = getSession(request.getSessionId());
+        Associate associate = getAssociate(request.getDocument());
+        Session session = getSession(request.getSessionId());
 
-        if (associate.isEmpty() || session.isEmpty()) {
+        if (associate == null || session == null || !isSessionOpen(session)) {
             return;
         }
 
+        VoteChoice choice = VoteChoice.valueOf(request.getVoteChoice());
+        saveVote(associate, session, choice);
+    }
+
+    private boolean isSessionOpen(Session session) {
+        if (session.getEndDate() != null) {
+            String msg = "A sessao id " + session.getId() + "ja esta encerrada.";
+            log.warn("Method isSessionOpen - " + msg);
+            return false;
+        }
+        return true;
+    }
+
+    private void saveVote(Associate associate, Session session, VoteChoice choice) {
         AssociateVote vote = AssociateVote.builder()
-                .associate(associate.get())
-                .voteChoice(VoteChoice.valueOf(request.getVoteChoice()))
-                .session(session.get())
+                .associate(associate)
+                .voteChoice(choice)
+                .session(session)
                 .build();
         try {
             repository.save(vote);
         } catch (DataIntegrityViolationException e) {
-            String doc = associate.get().getDocument();
-            log.error("O CPF final {} ja votou na sessao {}.", doc.substring(doc.length() - 5), session.get().getId());
+            log.error("Method saveVote - O CPF {} ja votou na sessao id {}.",
+                    StringUtils.hideDocument(associate.getDocument()), session.getId());
         }
     }
 
-    private Optional<Associate> getAssociate(String document) {
-        Optional<Associate> associate = associateRepository.findByDocument(document);
-
-        if (associate.isEmpty()) {
-            log.warn("O CPF final '{}' nao esta cadastrado.", document.substring(document.length() - 5));
+    private Associate getAssociate(String document) {
+        try {
+            return associateService.findByDocument(document);
+        } catch (EntityNotFoundException e) {
+            //no need to throw exception in these async process
+            return null;
         }
-        return associate;
     }
 
-    private Optional<Session> getSession(Long sessionId) {
-        //todo cacheable
-        Optional<Session> session = sessionRepository.findById(sessionId);
-
-        if (session.isEmpty()) {
-            log.warn("A sessao id {} nao foi localizada.", sessionId);
-        } else {
-            if (session.get().getEndDate() != null) {
-                log.warn("A sessao id={} ja esta encerrada.", sessionId);
-                return Optional.empty();
-            }
+    private Session getSession(Long sessionId) {
+        try {
+            //todo cacheable
+            return sessionService.findById(sessionId);
+        } catch (EntityNotFoundException e) {
+            return null;
         }
-        return session;
     }
 }

@@ -15,6 +15,7 @@ import java.util.Set;
 @Table(name = "session")
 @NoArgsConstructor
 public class Session {
+    //todo unique constraint topic
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

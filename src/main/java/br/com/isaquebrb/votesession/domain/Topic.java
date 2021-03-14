@@ -1,18 +1,18 @@
 package br.com.isaquebrb.votesession.domain;
 
 import br.com.isaquebrb.votesession.domain.dto.TopicResponse;
+import br.com.isaquebrb.votesession.domain.enums.TopicResult;
 import br.com.isaquebrb.votesession.domain.enums.TopicStatus;
 import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+
 @Builder
 @Entity
 @Table(name = "topic")
-@NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Topic {
 
     @Id
@@ -31,10 +31,16 @@ public class Topic {
     @Column(name = "status")
     private TopicStatus status = TopicStatus.OPENED;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "result")
+    private TopicResult result;
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToOne(mappedBy = "topic")
     private Session session;
 
     public TopicResponse toDto() {
-        return new TopicResponse(id, name, description, status.name());
+        return new TopicResponse(id, name, description);
     }
 }

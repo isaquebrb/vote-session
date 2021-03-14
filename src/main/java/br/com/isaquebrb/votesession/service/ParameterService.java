@@ -1,7 +1,7 @@
 package br.com.isaquebrb.votesession.service;
 
 import br.com.isaquebrb.votesession.domain.Parameter;
-import br.com.isaquebrb.votesession.domain.enums.parameter.IntegerParameter;
+import br.com.isaquebrb.votesession.domain.enums.parameters.IntegerParameter;
 import br.com.isaquebrb.votesession.repository.ParameterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

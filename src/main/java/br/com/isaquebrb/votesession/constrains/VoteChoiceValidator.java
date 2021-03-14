@@ -1,6 +1,7 @@
 package br.com.isaquebrb.votesession.constrains;
 
 import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
+import br.com.isaquebrb.votesession.utils.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -16,7 +17,9 @@ public class VoteChoiceValidator implements ConstraintValidator<VoteChoiceParams
             return false;
         }
 
-        return value.equals(VoteChoice.YES.name()) ||
-                value.equals(VoteChoice.NO.name());
+        String voteChoice = StringUtils.normalize(value).toUpperCase();
+
+        return voteChoice.equals(VoteChoice.YES.getValue()) ||
+                voteChoice.equals(VoteChoice.NO.getValue());
     }
 }

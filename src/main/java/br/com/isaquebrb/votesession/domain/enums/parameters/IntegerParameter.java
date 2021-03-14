@@ -1,4 +1,4 @@
-package br.com.isaquebrb.votesession.domain.enums.parameter;
+package br.com.isaquebrb.votesession.domain.enums.parameters;
 
 
 import lombok.AllArgsConstructor;

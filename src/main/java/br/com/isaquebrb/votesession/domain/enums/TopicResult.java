@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum VoteChoice {
+public enum TopicResult {
 
-    YES("SIM"),
-    NO("NAO");
+    APPROVED("APROVADO"),
+    REJECTED("RECUSADO");
 
-    private String value;
+    private String label;
 }
