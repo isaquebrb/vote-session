@@ -1,6 +1,7 @@
 package br.com.isaquebrb.votesession.domain;
 
 import br.com.isaquebrb.votesession.domain.dto.SessionResponse;
+import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
 import br.com.isaquebrb.votesession.utils.DateUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,10 +13,10 @@ import java.util.Set;
 
 @Getter
 @Entity
-@Table(name = "session")
+@Table(name = "session", uniqueConstraints =
+@UniqueConstraint(name = "topic_uk", columnNames = "topic_id"))
 @NoArgsConstructor
 public class Session {
-    //todo unique constraint topic
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +36,17 @@ public class Session {
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "session")
-    private Set<AssociateVote> associateVoteList;
+    private Set<AssociateVote> associateVotes;
 
     public SessionResponse toDto() {
         return new SessionResponse(id, DateUtils.toDateTime(startDate), topic.getName());
+    }
+
+    public Long getYesVotes(){
+        return associateVotes.stream().filter(v -> v.getVoteChoice().equals(VoteChoice.YES)).count();
+    }
+
+    public Long getNoVotes(){
+        return associateVotes.stream().filter(v -> v.getVoteChoice().equals(VoteChoice.NO)).count();
     }
 }

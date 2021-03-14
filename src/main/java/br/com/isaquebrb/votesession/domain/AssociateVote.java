@@ -1,7 +1,10 @@
 package br.com.isaquebrb.votesession.domain;
 
 import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +13,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "associate_vote", uniqueConstraints =
 @UniqueConstraint(columnNames = {"associate_id", "session_id"}, name = "associate_session_uk"))
+@AllArgsConstructor
+@NoArgsConstructor
 public class AssociateVote {
 
     @Id
@@ -17,6 +22,7 @@ public class AssociateVote {
     @Column(name = "id")
     private Long id;
 
+    @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = "vote_choice")
     private VoteChoice voteChoice;

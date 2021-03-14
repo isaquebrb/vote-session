@@ -7,11 +7,11 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
 @Builder
 @Entity
 @Table(name = "topic")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Topic {
 

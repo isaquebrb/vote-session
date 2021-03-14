@@ -13,7 +13,7 @@ public class StandardError {
     private Integer status;
 
     @Builder.Default
-    private List<String> errorsList = new ArrayList<>();
+    private List<String> errors = new ArrayList<>();
 
     private String message;
 

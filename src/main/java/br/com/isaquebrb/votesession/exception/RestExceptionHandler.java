@@ -22,7 +22,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         StandardError body = StandardError.builder()
                 .status(HttpStatus.NOT_FOUND.value())
-                .errorsList(Collections.singletonList(ErrorMessage.ENTITY_NOT_FOUND.getMessage()))
+                .errors(Collections.singletonList(ErrorMessage.ENTITY_NOT_FOUND.getMessage()))
                 .message(ex.getMessage())
                 .build();
 
@@ -34,7 +34,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         StandardError body = StandardError.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .errorsList(Collections.singletonList(ErrorMessage.DATABASE_ERROR.getMessage()))
+                .errors(Collections.singletonList(ErrorMessage.DATABASE_ERROR.getMessage()))
                 .message(ex.getMessage())
                 .build();
 
@@ -53,7 +53,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         StandardError body = StandardError.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .errorsList(errorList)
+                .errors(errorList)
                 .message(ex.getMessage())
                 .build();
 

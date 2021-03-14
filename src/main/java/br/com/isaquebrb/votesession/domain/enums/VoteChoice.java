@@ -11,4 +11,8 @@ public enum VoteChoice {
     NO("NAO");
 
     private String value;
+
+    public static VoteChoice getChoice(String value){
+        return value.equals(YES.getValue()) ? YES : NO;
+    }
 }

@@ -24,7 +24,7 @@ public class AssociateService {
             return repository.save(associate).toDto();
         } catch (DataIntegrityViolationException e) {
             String msg = "O CPF " + StringUtils.hideDocument(dto.getDocument()) + " ja esta cadastrado.";
-            log.error("Method addAssociate - " + msg);
+            log.error("Method addAssociate - " + msg, e);
             throw new DatabaseException(msg);
         }
     }

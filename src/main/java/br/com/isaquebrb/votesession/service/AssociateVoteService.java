@@ -33,7 +33,7 @@ public class AssociateVoteService {
             return;
         }
 
-        VoteChoice choice = VoteChoice.valueOf(request.getVoteChoice());
+        VoteChoice choice = VoteChoice.getChoice(StringUtils.normalize(request.getVoteChoice()).toUpperCase());
         saveVote(associate, session, choice);
     }
 
@@ -55,8 +55,9 @@ public class AssociateVoteService {
         try {
             repository.save(vote);
         } catch (DataIntegrityViolationException e) {
-            log.error("Method saveVote - O CPF {} ja votou na sessao id {}.",
-                    StringUtils.hideDocument(associate.getDocument()), session.getId());
+            String msg = "Method saveVote - O CPF " + StringUtils.hideDocument(associate.getDocument())
+                    + " ja votou na sessao id " + session.getId();
+            log.error(msg, e);
         }
     }
 
