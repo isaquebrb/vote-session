@@ -1,5 +1,6 @@
 package br.com.isaquebrb.votesession.service;
 
+import br.com.isaquebrb.votesession.config.CacheConfig;
 import br.com.isaquebrb.votesession.domain.Session;
 import br.com.isaquebrb.votesession.domain.Topic;
 import br.com.isaquebrb.votesession.domain.dto.SessionResponse;
@@ -10,7 +11,9 @@ import br.com.isaquebrb.votesession.exception.EntityNotFoundException;
 import br.com.isaquebrb.votesession.repository.SessionRepository;
 import br.com.isaquebrb.votesession.task.SessionRunnable;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
@@ -45,7 +48,9 @@ public class SessionService {
         return session.toDto();
     }
 
+    @Cacheable(value = CacheConfig.SESSION_CACHE, key = "#id")
     public Session findById(Long id) {
+        log.info("Find session with id {}", id);
         return repository.findById(id).orElseThrow(() -> {
             String msg = "A sessao id " + id + " nao foi localizada.";
             log.error("Method findById - " + msg);

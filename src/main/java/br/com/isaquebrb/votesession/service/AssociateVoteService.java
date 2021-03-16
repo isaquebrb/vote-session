@@ -97,7 +97,6 @@ public class AssociateVoteService {
 
     private Session getSession(Long sessionId) {
         try {
-            //todo cacheable
             return sessionService.findById(sessionId);
         } catch (EntityNotFoundException e) {
             return null;
