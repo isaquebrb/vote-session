@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class TopicRequest {
 
-    //todo exception to get MethodArgumentNotValidException
     @NotBlank(message = "O campo name é obrigatório.")
     private String name;
 

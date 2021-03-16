@@ -18,7 +18,6 @@ public class VotingRequest {
     @CPF(message = MessageConstraints.CPF)
     private String document;
 
-    //todo exception handling
     @VoteChoiceParams
     private String voteChoice;
 

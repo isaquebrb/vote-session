@@ -9,7 +9,8 @@ public enum ErrorMessage {
 
     ENTITY_NOT_FOUND("Entidade nao foi localizada."),
     DATABASE_ERROR("Erro no banco de dados."),
-    INVALID_FIELD("Campo invalido");
+    INVALID_FIELD("Campo invalido."),
+    BUSINESS_ERROR("Erro interno.");
 
     private String message;
 }

@@ -55,15 +55,16 @@ public class SessionService {
 
     public void closeSession(Long sessionId) {
         Optional<Session> optSession = repository.findSessionVotesById(sessionId);
-        if (optSession.isPresent()) {
-            Session session = optSession.get();
-            session.setEndDate(LocalDateTime.now());
-            repository.save(session);
-            log.info("Method closeSession - Sessao de votacao encerrada. Sessao id {}", sessionId);
-
-            topicService.saveVotingResult(session.getTopic());
+        if (optSession.isEmpty()) {
+            log.error("Method closeSession - Sessao id {} nao foi localizada.", sessionId);
+            return;
         }
-        log.error("Method closeSession - Sessao id {} nao foi localizada.", sessionId);
+
+        optSession.get().setEndDate(LocalDateTime.now());
+        repository.save(optSession.get());
+        log.info("Method closeSession - Sessao de votacao encerrada. Sessao id {}", sessionId);
+
+        topicService.saveVotingResult(optSession.get().getTopic());
     }
 
     private void runSession(Session session) {

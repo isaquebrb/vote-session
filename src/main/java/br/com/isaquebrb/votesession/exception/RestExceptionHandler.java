@@ -59,4 +59,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(ex, body, headers, HttpStatus.BAD_REQUEST, request);
     }
+
+    @ExceptionHandler(value = BusinessException.class)
+    protected ResponseEntity<Object> handleBusinessErrors(RuntimeException ex, WebRequest request) {
+
+        StandardError body = StandardError.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .errors(Collections.singletonList(ErrorMessage.BUSINESS_ERROR.getMessage()))
+                .message(ex.getMessage())
+                .build();
+
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 }
