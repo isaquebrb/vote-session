@@ -1,12 +1,14 @@
 package br.com.isaquebrb.votesession.domain.dto;
 
 import br.com.isaquebrb.votesession.constrains.MessageConstraints;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
+@AllArgsConstructor
 public class ParameterRequest {
 
     @NotBlank(message = MessageConstraints.NAME_NOT_BLANK)

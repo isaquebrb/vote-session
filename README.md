@@ -2,4 +2,4 @@
 Simple project to handle with voting sessions
 
 Features:
-OpenFeign, Caffeine Cache, JPA, PostgreSQL, Lombok, Junit 5, Spring Validation
+Java 11, Spring Boot, OpenFeign, Caffeine Cache, JPA, PostgreSQL, Lombok, JUnit 5, Spring Validation, Swagger

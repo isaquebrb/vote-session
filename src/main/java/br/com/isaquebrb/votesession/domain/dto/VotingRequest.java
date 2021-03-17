@@ -2,6 +2,7 @@ package br.com.isaquebrb.votesession.domain.dto;
 
 import br.com.isaquebrb.votesession.constrains.MessageConstraints;
 import br.com.isaquebrb.votesession.constrains.VoteChoiceParams;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @Getter
+@AllArgsConstructor
 public class VotingRequest {
 
     @NotBlank(message = MessageConstraints.DOCUMENT_NOT_BLANK)
@@ -21,7 +23,7 @@ public class VotingRequest {
     @VoteChoiceParams
     private String voteChoice;
 
-    @NotNull(message = "O campo sessionId e obrigatorio")
-    @Positive(message = "O campo sessionId deve ser numerico")
+    @NotNull(message = MessageConstraints.SESSION_ID_NOT_BLANK)
+    @Positive(message = MessageConstraints.SESSION_ID_POSITIVE)
     private Long sessionId;
 }

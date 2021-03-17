@@ -1,6 +1,5 @@
-package utils;
+package br.com.isaquebrb.votesession.utils;
 
-import br.com.isaquebrb.votesession.utils.DateUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
