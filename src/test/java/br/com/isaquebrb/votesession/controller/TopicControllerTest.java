@@ -1,7 +1,11 @@
 package br.com.isaquebrb.votesession.controller;
 
 import br.com.isaquebrb.votesession.constrains.MessageConstraints;
+import br.com.isaquebrb.votesession.domain.Topic;
 import br.com.isaquebrb.votesession.domain.dto.TopicRequest;
+import br.com.isaquebrb.votesession.domain.dto.TopicResponse;
+import br.com.isaquebrb.votesession.domain.enums.TopicResult;
+import br.com.isaquebrb.votesession.domain.enums.TopicStatus;
 import br.com.isaquebrb.votesession.exception.StandardError;
 import br.com.isaquebrb.votesession.service.TopicService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,5 +62,28 @@ public class TopicControllerTest {
         StandardError error = objectMapper.readValue(result.getResponse().getContentAsString(), StandardError.class);
 
         assertThat(error.getErrors()).contains(MessageConstraints.NAME_NOT_BLANK);
+    }
+
+    @Test
+    public void whenFindById_thenReturnsDto() throws Exception {
+        Topic topic = Topic.builder()
+                .id(1L)
+                .name("Topic name")
+                .description("Topic description")
+                .status(TopicStatus.CLOSED)
+                .result(TopicResult.APPROVED)
+                .session(null).build();
+
+        when(service.findById(anyLong())).thenReturn(topic);
+
+        MvcResult result = mockMvc.perform(get("/topic/{id}", topic.getId())
+                .contentType(CONTENT_TYPE))
+                .andExpect(status().isOk()).andReturn();
+
+        TopicResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), TopicResponse.class);
+
+        assertThat(response.getId()).isEqualTo(topic.getId());
+        assertThat(response.getStatus()).isEqualTo(topic.getStatus().name());
+        assertThat(response.getResult()).isEqualTo(topic.getResult().name());
     }
 }

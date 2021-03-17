@@ -41,6 +41,6 @@ public class Topic {
     private Session session;
 
     public TopicResponse toDto() {
-        return new TopicResponse(id, name, description);
+        return new TopicResponse(id, name, description, status.name(), result.name());
     }
 }
