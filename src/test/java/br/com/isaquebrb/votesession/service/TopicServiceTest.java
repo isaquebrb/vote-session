@@ -47,7 +47,7 @@ class TopicServiceTest {
 
     @BeforeAll
     static void setUp() {
-        topic = new Topic(1L, NAME, DESCRIPTION, TopicStatus.OPENED, null, null);
+        topic = new Topic(1L, NAME, DESCRIPTION, TopicStatus.OPENED, TopicResult.APPROVED, null);
     }
 
     @Test
