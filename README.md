@@ -8,6 +8,8 @@ Project to handle voting sessions
 - Count the votes and give the topic voting result
 
 ## Solution
+```https://vote-session.herokuapp.com/ ```
+
 This solution was built with Java 11 + Spring Boot 2.4 and others tools like OpenFeign, Caffeine Cache, JPA, PostgreSQL, Lombok, JUnit 5, Spring Validation, Swagger2.
 
 #### Requirements
