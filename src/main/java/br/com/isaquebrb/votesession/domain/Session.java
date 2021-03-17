@@ -3,6 +3,7 @@ package br.com.isaquebrb.votesession.domain;
 import br.com.isaquebrb.votesession.domain.dto.SessionResponse;
 import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
 import br.com.isaquebrb.votesession.utils.DateUtils;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Table(name = "session", uniqueConstraints =
 @UniqueConstraint(name = "topic_uk", columnNames = "topic_id"))
 @NoArgsConstructor
+@AllArgsConstructor
 public class Session {
 
     @Id

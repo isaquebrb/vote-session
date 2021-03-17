@@ -49,7 +49,6 @@ public class SessionService {
 
     @Cacheable(value = CacheConfig.SESSION_CACHE, key = "#id")
     public Session findById(Long id) {
-        log.info("Find session with id {}", id);
         return repository.findById(id).orElseThrow(() -> {
             String msg = "A sessao id " + id + " nao foi localizada.";
             log.error("Method findById - " + msg);

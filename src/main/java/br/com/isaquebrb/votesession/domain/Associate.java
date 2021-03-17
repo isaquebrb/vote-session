@@ -1,6 +1,7 @@
 package br.com.isaquebrb.votesession.domain;
 
 import br.com.isaquebrb.votesession.domain.dto.AssociateRequest;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 @Table(name = "associate", uniqueConstraints =
 @UniqueConstraint(columnNames = "document", name = "document_uk"))
 @NoArgsConstructor
+@AllArgsConstructor
 public class Associate {
 
     public Associate(String document, String name) {

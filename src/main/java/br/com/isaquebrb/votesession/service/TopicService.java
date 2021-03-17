@@ -5,7 +5,6 @@ import br.com.isaquebrb.votesession.domain.dto.TopicRequest;
 import br.com.isaquebrb.votesession.domain.dto.TopicResponse;
 import br.com.isaquebrb.votesession.domain.enums.TopicResult;
 import br.com.isaquebrb.votesession.domain.enums.TopicStatus;
-import br.com.isaquebrb.votesession.exception.DatabaseException;
 import br.com.isaquebrb.votesession.exception.EntityNotFoundException;
 import br.com.isaquebrb.votesession.repository.TopicRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,16 +31,6 @@ public class TopicService {
         });
     }
 
-    public Topic save(Topic topic) {
-        try {
-            return repository.save(topic);
-        } catch (Exception e) {
-            String msg = "Erro ao salvar a pauta: " + topic.toString();
-            log.error("Method save - " + msg);
-            throw new DatabaseException(msg);
-        }
-    }
-
     public void saveVotingResult(Topic topic) {
         try {
             if (topic.getSession().getYesVotes() > topic.getSession().getNoVotes()) {
@@ -57,6 +46,5 @@ public class TopicService {
             String msg = "Erro ao salvar a pauta " + topic.getName();
             log.error("Method saveVotingResult - " + msg, e);
         }
-
     }
 }

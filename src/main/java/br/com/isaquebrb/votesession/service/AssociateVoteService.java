@@ -9,6 +9,7 @@ import br.com.isaquebrb.votesession.domain.enums.UserInfoStatus;
 import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
 import br.com.isaquebrb.votesession.exception.EntityNotFoundException;
 import br.com.isaquebrb.votesession.integration.UserInfoClient;
+import br.com.isaquebrb.votesession.integration.UserInfoService;
 import br.com.isaquebrb.votesession.repository.AssociateVoteRepository;
 import br.com.isaquebrb.votesession.utils.StringUtils;
 import feign.FeignException;
@@ -28,7 +29,7 @@ public class AssociateVoteService {
     private final AssociateVoteRepository repository;
     private final AssociateService associateService;
     private final SessionService sessionService;
-    private final UserInfoClient userInfoIntegration;
+    private final UserInfoService userInfoService;
 
     @Async
     public void vote(VotingRequest request) {
@@ -42,7 +43,7 @@ public class AssociateVoteService {
 
         VoteChoice choice = VoteChoice.getChoice(StringUtils.normalize(request.getVoteChoice()).toUpperCase());
 
-        if (isAbleToVote(associate.getDocument())) {
+        if (userInfoService.isAbleToVote(associate.getDocument())) {
             saveVote(associate, session, choice);
         }
     }
@@ -54,21 +55,6 @@ public class AssociateVoteService {
             return false;
         }
         return true;
-    }
-
-    private boolean isAbleToVote(String document) {
-        try {
-            Optional<UserInfo> user = userInfoIntegration.getUserInfo(document);
-            if (user.isPresent() && user.get().getStatus() != null &&
-                    UserInfoStatus.valueOf(user.get().getStatus()).equals(UserInfoStatus.ABLE_TO_VOTE)) {
-                return true;
-            }
-        } catch (IllegalArgumentException e) {
-            log.error("Method isAbleToVote - A resposta da integracao UserInfo nao esta de acordo.", e);
-        } catch (FeignException e) {
-            log.error("Method isAbleToVote - Erro na requisicao a integracao UserInfo.", e);
-        }
-        return false;
     }
 
     private void saveVote(Associate associate, Session session, VoteChoice choice) {

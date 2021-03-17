@@ -1,9 +1,7 @@
 package br.com.isaquebrb.votesession.domain;
 
 import br.com.isaquebrb.votesession.domain.dto.ParameterResponse;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +10,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "parameter")
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Parameter {
 
     @Id
