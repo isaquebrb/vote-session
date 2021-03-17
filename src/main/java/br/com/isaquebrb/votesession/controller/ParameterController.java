@@ -20,7 +20,7 @@ public class ParameterController {
     private final ParameterService service;
 
     @PatchMapping
-    private ResponseEntity<ParameterResponse> updateParam(@Valid @RequestBody ParameterRequest request) {
+    public ResponseEntity<ParameterResponse> updateParam(@Valid @RequestBody ParameterRequest request) {
         return ResponseEntity.ok(service.update(request));
     }
 }

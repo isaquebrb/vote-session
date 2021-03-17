@@ -1,6 +1,5 @@
 package br.com.isaquebrb.votesession.service;
 
-import br.com.isaquebrb.votesession.domain.AssociateVote;
 import br.com.isaquebrb.votesession.domain.Topic;
 import br.com.isaquebrb.votesession.domain.dto.TopicRequest;
 import br.com.isaquebrb.votesession.domain.dto.TopicResponse;
@@ -12,8 +11,6 @@ import br.com.isaquebrb.votesession.repository.TopicRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Slf4j
 @Service

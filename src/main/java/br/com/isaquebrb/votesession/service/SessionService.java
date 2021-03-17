@@ -11,7 +11,6 @@ import br.com.isaquebrb.votesession.exception.EntityNotFoundException;
 import br.com.isaquebrb.votesession.repository.SessionRepository;
 import br.com.isaquebrb.votesession.task.SessionRunnable;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -74,7 +73,7 @@ public class SessionService {
 
     private void runSession(Session session) {
         Integer durationMinutes = parameterService.getSessionDurationMinutes();
-        Instant endDate = Instant.now().plusSeconds(durationMinutes * 60);
+        Instant endDate = Instant.now().plusSeconds(durationMinutes * 60L);
         taskScheduler.schedule(new SessionRunnable(session.getId(), this), endDate);
         log.info("Method runSession - A sessao da pauta '{}' esta aberta para votacao. Tempo de duracao: {} minutos",
                 session.getTopic().getName(), durationMinutes);
