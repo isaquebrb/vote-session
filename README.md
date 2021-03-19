@@ -10,7 +10,7 @@ Project to handle voting sessions
 ## Solution
 ```https://vote-session.herokuapp.com/ ```
 
-This solution was built with Java 11 + Spring Boot 2.4 and others tools like OpenFeign, Caffeine Cache, JPA, PostgreSQL, Lombok, JUnit 5, Spring Validation, Swagger2.
+This solution was built with Java 11 + Spring Boot 2.4 and others tools like OpenFeign, Caffeine Cache, JPA, PostgreSQL, Lombok, JUnit 5, Spring Validation, Swagger2, Docker Compose, Kafka.
 
 #### Requirements
 
@@ -48,3 +48,8 @@ Running Local: http://localhost:8080/swagger-ui/
 Notes:
 - There is an integration that randomly allow the document to vote or not
 - You can update the value of SESSION_DURATION_MINUTES parameter, to change the duration time
+
+## Kafka
+
+This solution uses [CloudKarafka](https://www.cloudkarafka.com/docs/index.html), this feature provides Apache Kafka as service on cloud. So when the voting is done, a message will be sent to the CloudKarafka topic.
+In the **application.properties** you can see these configs, like topic name, authentication to cloudkarafka, bootstrap servers and group id name. Spring boot simple doc: https://www.cloudkarafka.com/docs/spring.html 
