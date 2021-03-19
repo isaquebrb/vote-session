@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.1'
 	implementation 'org.springframework.cloud:spring-cloud-dependencies:2020.0.1'
+	implementation 'org.springframework.kafka:spring-kafka'
 
 	//database
 	runtimeOnly 'org.postgresql:postgresql'

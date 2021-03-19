@@ -31,9 +31,10 @@ public class Topic {
     @Column(name = "status")
     private TopicStatus status = TopicStatus.OPENED;
 
+    @Builder.Default
     @Enumerated(value = EnumType.STRING)
     @Column(name = "result")
-    private TopicResult result;
+    private TopicResult result = TopicResult.NOT_VOTED;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

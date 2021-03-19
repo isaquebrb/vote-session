@@ -6,6 +6,7 @@ import br.com.isaquebrb.votesession.domain.dto.TopicResponse;
 import br.com.isaquebrb.votesession.domain.enums.TopicResult;
 import br.com.isaquebrb.votesession.domain.enums.TopicStatus;
 import br.com.isaquebrb.votesession.exception.EntityNotFoundException;
+import br.com.isaquebrb.votesession.kafka.KafkaProducer;
 import br.com.isaquebrb.votesession.repository.TopicRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class TopicService {
 
     private final TopicRepository repository;
+    private final KafkaProducer kafkaProducer;
 
     public TopicResponse createTopic(TopicRequest dto) {
         Topic topic = dto.toEntity();
@@ -42,6 +44,8 @@ public class TopicService {
             topic.setStatus(TopicStatus.CLOSED);
             repository.save(topic);
             log.info("Method saveVotingResult - A pauta {} foi {}.", topic.getName(), topic.getResult().getLabel());
+
+            kafkaProducer.send(topic.toDto());
         } catch (Exception e) {
             String msg = "Erro ao salvar a pauta " + topic.getName();
             log.error("Method saveVotingResult - " + msg, e);

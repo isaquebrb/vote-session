@@ -9,6 +9,7 @@ import br.com.isaquebrb.votesession.domain.enums.TopicResult;
 import br.com.isaquebrb.votesession.domain.enums.TopicStatus;
 import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
 import br.com.isaquebrb.votesession.exception.EntityNotFoundException;
+import br.com.isaquebrb.votesession.kafka.KafkaProducer;
 import br.com.isaquebrb.votesession.repository.TopicRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,9 @@ class TopicServiceTest {
 
     @Mock
     TopicRepository repository;
+
+    @Mock
+    KafkaProducer kafkaProducer;
 
     @Captor
     ArgumentCaptor<Topic> topicCaptor;
@@ -93,6 +97,7 @@ class TopicServiceTest {
 
         service.saveVotingResult(topic);
 
+        verify(kafkaProducer, times(1)).send(any(TopicResponse.class));
         verify(repository).save(topicCaptor.capture());
         Topic value = topicCaptor.getValue();
 
@@ -115,6 +120,7 @@ class TopicServiceTest {
 
         service.saveVotingResult(topic);
 
+        verify(kafkaProducer, times(1)).send(any(TopicResponse.class));
         verify(repository).save(topicCaptor.capture());
         Topic value = topicCaptor.getValue();
 
@@ -127,6 +133,7 @@ class TopicServiceTest {
     void whenSavingVotesThrowsException_ThenDoNoting() {
         service.saveVotingResult(topic);
 
+        verify(kafkaProducer, times(0)).send(any(TopicResponse.class));
         verify(repository, times(0)).save(any(Topic.class));
     }
 }

@@ -3,23 +3,17 @@ package br.com.isaquebrb.votesession.service;
 import br.com.isaquebrb.votesession.domain.Associate;
 import br.com.isaquebrb.votesession.domain.AssociateVote;
 import br.com.isaquebrb.votesession.domain.Session;
-import br.com.isaquebrb.votesession.domain.dto.UserInfo;
 import br.com.isaquebrb.votesession.domain.dto.VotingRequest;
-import br.com.isaquebrb.votesession.domain.enums.UserInfoStatus;
 import br.com.isaquebrb.votesession.domain.enums.VoteChoice;
 import br.com.isaquebrb.votesession.exception.EntityNotFoundException;
-import br.com.isaquebrb.votesession.integration.UserInfoClient;
 import br.com.isaquebrb.votesession.integration.UserInfoService;
 import br.com.isaquebrb.votesession.repository.AssociateVoteRepository;
 import br.com.isaquebrb.votesession.utils.StringUtils;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Slf4j
 @Service

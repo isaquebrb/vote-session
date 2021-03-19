@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TopicResult {
 
+    NOT_VOTED("NAO FOI VOTADO"),
     APPROVED("APROVADO"),
     REJECTED("RECUSADO");
 
